@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="gemfirexd" default="somebuild" basedir=".">
+
+    <property name="dita.dir" location="src/main"/>
+
+    <target name="somebuild">
+        <ant antfile="${dita.dir}${file.separator}build.xml">
+            <property name="args.input" value="../gemfirexd-140/pivotal-gemfirexd.ditamap"/>
+            <property name="transtype" value="html5"/>
+        </ant>
+    </target>
+
+</project>
