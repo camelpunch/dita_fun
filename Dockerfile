@@ -45,5 +45,11 @@ RUN     sed --in-place --expression='s| *"[./a-z]*topic\.dtd"| "/dita-ot/src/mai
 
 RUN     sed --in-place --expression='s| *"[./a-z]*concept\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/concept.dtd"|' `grep -rl --include=*.xml --include=*.dita concept.dtd /gemfirexd-140/*`
 
+RUN     sed --in-place --expression='s| *"[./a-z]*task\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/task.dtd"|' `grep -rl --include=*.xml --include=*.dita task.dtd /gemfirexd-140/*`
+
+RUN     sed --in-place --expression='s| *"[./a-z]*ditabase\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/ditabase.dtd"|' `grep -rl --include=*.xml --include=*.dita ditabase.dtd /gemfirexd-140/*`
+
+RUN     sed --in-place --expression='s| *"[./a-z]*generalTask\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/generalTask.dtd"|' `grep -rl --include=*.xml --include=*.dita generalTask.dtd /gemfirexd-140/*`
+
 ADD     gemfire_build.xml /dita-ot/gemfire_build.xml
 RUN     yes  | ant -f gemfire_build.xml
