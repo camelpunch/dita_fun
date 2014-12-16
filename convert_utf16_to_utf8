@@ -1,0 +1,7 @@
+#!/bin/bash
+
+find $1 -type f -exec file --mime {} \; | grep "charset=utf-16" | sed -e 's/: .\+//' |
+while read file; do
+    cat "$file" | iconv -f UTF-16 -t UTF-8 > "$file.tmp"
+    mv -f "$file.tmp" "$file"
+done
