@@ -3,10 +3,7 @@
 # base
 FROM    ubuntu:14.10
 RUN     apt-get update
-RUN     apt-get install -qy build-essential wget
 
-# create user
-RUN     adduser --disabled-password web
 
 RUN     apt-get install -qq git
 RUN     apt-get install -qq openjdk-8-jdk
