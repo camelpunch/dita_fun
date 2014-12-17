@@ -8,7 +8,14 @@ RUN     apt-get update
 RUN     apt-get install -qq vim
 
 RUN     apt-get install -qq git
-RUN     apt-get install -qq openjdk-8-jdk
+
+# Install Oracle JDK (openjdk doesn't cut it)
+RUN     apt-get install -qq software-properties-common
+RUN     add-apt-repository ppa:webupd8team/java
+RUN     apt-get update
+RUN     echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN     apt-get install -qq oracle-java7-installer
+RUN     apt-get install -qq oracle-java7-set-default
 RUN     apt-get install -qq ant
 
 # Install DITA
@@ -19,6 +26,8 @@ RUN 	ant jar
 RUN     ant jar.plug-ins
 RUN     ant -f src/main/integrator.xml
 
+# These fail on e.g. openjdk
+RUN     ant test
 
 ENV     CLASSPATH /dita-ot/src/main/:/dita-ot/src/main/lib/:/dita-ot/src/main/lib/dost.jar:/dita-ot/src/main/lib/xercesImpl.jar:/dita-ot/src/main/lib/xml-apis.jar:/dita-ot/src/main/lib/commons-codec-1.4.jar:/dita-ot/src/main/lib/saxon/saxon9-dom.jar:/dita-ot/src/main/lib/saxon/saxon9.jar:/dita-ot/src/main/lib/resolver.jar:/dita-ot/src/main/lib/icu4j.jar:/dita-ot/src/main/lib/commons-io.jar:/dita-ot/src/main/resources
 
