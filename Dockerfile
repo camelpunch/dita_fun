@@ -22,9 +22,7 @@ RUN     apt-get install -qq ant
 RUN     git clone https://github.com/dita-ot/dita-ot.git
 WORKDIR dita-ot
 RUN     git submodule update --init --recursive
-RUN 	ant jar
-RUN     ant jar.plug-ins
-RUN     ant -f src/main/integrator.xml
+RUN 	ant
 
 # These fail on e.g. openjdk
 RUN     ant test
