@@ -34,7 +34,7 @@ ADD     gemfirexd-140 /gemfirexd-140
 ADD     convert_utf16_to_utf8 /usr/local/bin/convert_utf16_to_utf8
 RUN     convert_utf16_to_utf8 /gemfirexd-140
 
-# Replace relative links to DTDs with absolute paths. Look away now.
+# Replace relative links to DTDs with absolute paths.
 RUN     sed --in-place --regexp-extended --expression='s> *"[./a-z]*(reference|topic|concept|task|generalTask)\.dtd"> "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/\1.dtd">' `grep -rl --include=*.xml --include=*.dita -E '(reference|topic|concept|task|generalTask).dtd' /gemfirexd-140/*`
 
 RUN     sed --in-place --regexp-extended --expression='s| *"[./a-z]*dita(base\.dtd)?"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/ditabase.dtd"|' `grep -rl --include=*.xml --include=*.dita -E "dita(base)?.dtd" /gemfirexd-140/*`
