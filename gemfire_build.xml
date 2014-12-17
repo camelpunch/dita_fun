@@ -6,7 +6,7 @@
     <target name="somebuild">
         <ant antfile="${dita.dir}${file.separator}build.xml">
             <property name="args.input" value="../gemfirexd-140/pivotal-gemfirexd.ditamap"/>
-            <property name="transtype" value="html5"/>
+            <property name="transtype" value="htmlhelp"/>
         </ant>
     </target>
 
