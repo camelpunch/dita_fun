@@ -31,17 +31,9 @@ ADD     convert_utf16_to_utf8 /usr/local/bin/convert_utf16_to_utf8
 RUN     convert_utf16_to_utf8 /gemfirexd-140
 
 # Replace relative links to DTDs with absolute paths. Look away now.
-RUN     sed --in-place --expression='s| *"[./a-z]*reference\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/reference.dtd"|' `grep -rl --include=*.xml --include=*.dita reference.dtd /gemfirexd-140/*`
-
-RUN     sed --in-place --expression='s| *"[./a-z]*topic\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/topic.dtd"|' `grep -rl --include=*.xml --include=*.dita topic.dtd /gemfirexd-140/*`
-
-RUN     sed --in-place --expression='s| *"[./a-z]*concept\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/concept.dtd"|' `grep -rl --include=*.xml --include=*.dita concept.dtd /gemfirexd-140/*`
-
-RUN     sed --in-place --expression='s| *"[./a-z]*task\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/task.dtd"|' `grep -rl --include=*.xml --include=*.dita task.dtd /gemfirexd-140/*`
+RUN     sed --in-place --regexp-extended --expression='s> *"[./a-z]*(reference|topic|concept|task|generalTask)\.dtd"> "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/\1.dtd">' `grep -rl --include=*.xml --include=*.dita -E '(reference|topic|concept|task|generalTask).dtd' /gemfirexd-140/*`
 
 RUN     sed --in-place --regexp-extended --expression='s| *"[./a-z]*dita(base\.dtd)?"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/ditabase.dtd"|' `grep -rl --include=*.xml --include=*.dita -E "dita(base)?.dtd" /gemfirexd-140/*`
-
-RUN     sed --in-place --expression='s| *"[./a-z]*generalTask\.dtd"| "/dita-ot/src/main/plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/generalTask.dtd"|' `grep -rl --include=*.xml --include=*.dita generalTask.dtd /gemfirexd-140/*`
 
 ADD     gemfire_build.xml /dita-ot/gemfire_build.xml
 RUN     ant -f gemfire_build.xml
