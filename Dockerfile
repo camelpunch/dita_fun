@@ -13,9 +13,9 @@ RUN     apt-get install -qq git
 RUN     apt-get install -qq openjdk-6-jdk
 
 # Install Ant from upstream distribution, fixes https://github.com/dita-ot/dita-ot/issues/1613
-ADD     http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.2-bin.tar.bz2 ant.tar.bz2
+ADD     http://apache.mirrors.timporter.net//ant/binaries/apache-ant-1.9.4-bin.tar.bz2 ant.tar.bz2
 RUN     tar -jxf ant.tar.bz2
-ENV     PATH /apache-ant-1.8.2/bin/:$PATH
+ENV     PATH /apache-ant-1.9.4/bin/:$PATH
 
 # Install old version of DITA-OT that works with our ditamaps
 RUN     git clone https://github.com/dita-ot/dita-ot.git
