@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+if [ -e out ]
+then
+    echo "Try again after deleting your out dir"
+    exit 1
+fi
+
+docker build -t ditafun .
+docker run -t ditafun &
+sleep 1
+container=`docker ps | awk 'NR==2 {print $1}'`
+docker cp $container:dita-ot/out .
+
+echo "Output copied to your local 'out' dir"
+
+docker stop $container
+docker rm $container
